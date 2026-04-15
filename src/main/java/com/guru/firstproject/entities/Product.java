@@ -2,6 +2,7 @@ package com.guru.firstproject.entities;
 
 import jakarta.persistence.*;
 
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -14,8 +15,8 @@ public class Product {
     private float price;
 
     @ManyToMany
-    @JoinTable(name = "unser_product",joinColumns = @JoinColumn(name = "product_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
-    private Set<User> userSet;
+    @JoinTable(name = "user_product",joinColumns = @JoinColumn(name = "product_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
+    private Set<User> userSet = new HashSet<>();
 
     public Set<User> getUserSet() {
         return userSet;
@@ -49,6 +50,18 @@ public class Product {
         this.price = price;
     }
 
+
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                ", userSet=" + userSet +
+                '}';
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
@@ -60,15 +73,5 @@ public class Product {
     @Override
     public int hashCode() {
         return Objects.hashCode(getId());
-    }
-
-    @Override
-    public String toString() {
-        return "Product{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", price=" + price +
-                ", userSet=" + userSet +
-                '}';
     }
 }

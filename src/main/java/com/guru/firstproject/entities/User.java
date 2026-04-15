@@ -2,6 +2,7 @@ package com.guru.firstproject.entities;
 
 import jakarta.persistence.*;
 
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -13,8 +14,8 @@ public class User {
     private String firstname;
     private String lastname;
 
-    @ManyToMany(mappedBy = "autherSet")
-    private Set<Product> productSet;
+    @ManyToMany(mappedBy = "userSet")
+    private Set<Product> productSet  = new HashSet<>();
 
     public Set<Product> getProductSet() {
         return productSet;
@@ -48,6 +49,18 @@ public class User {
         this.lastname = lastname;
     }
 
+
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", firstname='" + firstname + '\'' +
+                ", lastname='" + lastname + '\'' +
+                ", productSet=" + productSet +
+                '}';
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
@@ -59,15 +72,5 @@ public class User {
     @Override
     public int hashCode() {
         return Objects.hashCode(getId());
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", firstname='" + firstname + '\'' +
-                ", lastname='" + lastname + '\'' +
-                ", productSet=" + productSet +
-                '}';
     }
 }

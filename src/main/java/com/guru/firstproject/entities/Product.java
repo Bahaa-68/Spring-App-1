@@ -15,15 +15,15 @@ public class Product {
     private float price;
 
     @ManyToMany
-    @JoinTable(name = "user_product",joinColumns = @JoinColumn(name = "product_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
-    private Set<User> userSet = new HashSet<>();
+    @JoinTable(name = "seller_product",joinColumns = @JoinColumn(name = "product_id"), inverseJoinColumns = @JoinColumn(name = "seller_id"))
+    private Set<Seller> sellerSet = new HashSet<>();
 
-    public Set<User> getUserSet() {
-        return userSet;
+    public Set<Seller> getSellerSet() {
+        return sellerSet;
     }
 
-    public void setUserSet(Set<User> userSet) {
-        this.userSet = userSet;
+    public void setSellerSet(Set<Seller> sellerSet) {
+        this.sellerSet = sellerSet;
     }
 
     public Long getId() {
@@ -58,7 +58,7 @@ public class Product {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", price=" + price +
-                ", userSet=" + userSet +
+                ", userSet=" + sellerSet +
                 '}';
     }
 

@@ -7,14 +7,15 @@ import java.util.Objects;
 import java.util.Set;
 
 @Entity
-public class User {
+//@Table(name = "userSet")
+public class Seller {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private Long id ;
     private String firstname;
     private String lastname;
 
-    @ManyToMany(mappedBy = "userSet")
+    @ManyToMany(mappedBy = "sellerSet")
     private Set<Product> productSet  = new HashSet<>();
 
     public Set<Product> getProductSet() {
@@ -65,7 +66,7 @@ public class User {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
 
-        User user = (User) o;
+        Seller user = (Seller) o;
         return Objects.equals(getId(), user.getId());
     }
 

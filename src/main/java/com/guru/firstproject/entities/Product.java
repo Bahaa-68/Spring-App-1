@@ -18,6 +18,17 @@ public class Product {
     @JoinTable(name = "seller_product",joinColumns = @JoinColumn(name = "product_id"), inverseJoinColumns = @JoinColumn(name = "seller_id"))
     private Set<Seller> sellerSet = new HashSet<>();
 
+    @ManyToOne
+    private Customer customer;
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
     public Set<Seller> getSellerSet() {
         return sellerSet;
     }
@@ -59,6 +70,7 @@ public class Product {
                 ", name='" + name + '\'' +
                 ", price=" + price +
                 ", userSet=" + sellerSet +
+                ",customer=" + customer+
                 '}';
     }
 

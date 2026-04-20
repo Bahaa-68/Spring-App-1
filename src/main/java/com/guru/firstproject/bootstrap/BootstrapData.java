@@ -6,6 +6,7 @@ import com.guru.firstproject.entities.Seller;
 import com.guru.firstproject.repositories.CustomerRepository;
 import com.guru.firstproject.repositories.ProductRepository;
 import com.guru.firstproject.repositories.SellerRepository;
+import com.guru.firstproject.services.ProductServiceImp;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -82,6 +83,7 @@ public class BootstrapData implements CommandLineRunner {
 
         IO.println("In Bootstrap \n Sellers Count : "+ sellerRepository.count()+"\nProducts Count : "+productRepository.count()+" \nCustomer Count : "+ customerRepository.count());
         IO.println("Hash Code of Book is : "+Objects.hashCode(saveSiegward.getId()));
+        
 
     }
 }

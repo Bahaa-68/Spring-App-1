@@ -42,8 +42,8 @@ public class BootstrapData implements CommandLineRunner {
 
         Seller saveErich = sellerRepository.save(erich);
         Product saveBook = productRepository.save(book);
-       // Customer saveAaron = customerRepository.save(aaron);
-
+        // Customer saveAaron = customerRepository.save(aaron);
+        
 
         Seller siegward = new Seller();
         siegward.setFirstname("Siegward");

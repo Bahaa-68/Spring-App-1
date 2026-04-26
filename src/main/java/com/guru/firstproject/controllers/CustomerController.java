@@ -14,7 +14,7 @@ public class CustomerController {
 
     @RequestMapping("/customers")
     String getCustomers1(Model model){
-        model.addAttribute("customers1", customerService.findAll());
+        model.addAttribute("customers_", customerService.findAll());
         return "customers1";
     }
 }

@@ -12,7 +12,7 @@
             <td>User Name</td>
             <td>Pay Method</td>
         </tr>
-        <tr th:each="customer : ${customers1}">
+        <tr th:each="customer : ${customers_}">
             <td th:text="${customer.id}">123</td>
             <td th:text="${customer.userName}">User Name</td>
             <td th:text="${customer.payMethod}">Pay Method</td>

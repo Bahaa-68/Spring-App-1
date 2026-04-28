@@ -6,7 +6,7 @@ import org.springframework.stereotype.Controller;
 
 @Controller
 public class DummyController {
-    private DummyService dummyService;
+    private final DummyService dummyService;
     @Autowired
     public DummyController(DummyService dummyService){
         this.dummyService = dummyService;

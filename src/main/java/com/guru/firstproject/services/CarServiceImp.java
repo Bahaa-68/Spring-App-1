@@ -12,10 +12,11 @@ import java.util.*;
 @Slf4j
 @Service
 public class CarServiceImp implements CarService{
-
+    private Map<CarBrand, Car> carMapByBrand;
     private Map<UUID,Car> carMap;
     public CarServiceImp(){
         this.carMap = new HashMap<>();
+        this.carMapByBrand = new HashMap<>();
        Car car1 = Car.builder()
                 .id(UUID.randomUUID())
                 .brand(CarBrand.FORD)
@@ -53,26 +54,51 @@ public class CarServiceImp implements CarService{
         carMap.put(car2.getId(), car2);
         carMap.put(car3.getId(), car3);
         carMap.put(car4.getId(), car4);
+
+        carMapByBrand.put(car1.getBrand(),car1);
+        carMapByBrand.put(car2.getBrand(),car2);
+        carMapByBrand.put(car3.getBrand(),car3);
     }
 
     @Override
     public List<Car> listTheCars() {
         return new ArrayList<>(carMap.values());
-
     }
 
     @Override
     public Car getCarById(UUID id){
         log.debug("Inside getCarById in Services");
-
         return  carMap.get(id);
-//                Car.builder()
-//                .id(id)
-//                .brand(CarBrand.FORD)
-//                .type("Sports")
-//                .manufactureDate(LocalDate.now())
-//                .price(new BigDecimal("7500.00"))
-//                .model("Corvid")
-//                .build();
+    }
+    @Override
+    public Car addCar(Car car) {
+        Car newCar = Car.builder()
+                .id(UUID.randomUUID())
+                .brand(car.getBrand())
+                .type(car.getType())
+                .model(car.getModel())
+                .price(car.getPrice())
+                .manufactureDate(LocalDate.now())
+                .build();
+        carMap.put(newCar.getId(), newCar);
+        return newCar;
+    }
+    public void updateCarById(UUID id, Car car){
+        Car current = carMap.get(id);
+        current.setType(car.getType());
+        current.setModel(car.getModel());
+        current.setPrice(car.getPrice());
+        current.setManufactureDate(car.getManufactureDate());
+        current.setBrand(car.getBrand());
+
+        carMap.put(current.getId(),current);
+    }
+    @Override
+    public Car getCarByBrand(CarBrand carBrand){
+        return carMapByBrand.get(carBrand);
+    }
+    @Override
+    public void deleteCarById(UUID carId){
+        carMap.remove(carId);
     }
 }

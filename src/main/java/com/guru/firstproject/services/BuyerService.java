@@ -9,4 +9,10 @@ import java.util.UUID;
 public interface BuyerService {
     List<Buyer> listTheBuyers();
     Buyer getBuyerById(UUID id);
+
+    Buyer addBuyer(Buyer buyer);
+
+    void updateBuyer(UUID id, Buyer buyer);
+
+    void deleteBuyer(UUID buyerId);
 }

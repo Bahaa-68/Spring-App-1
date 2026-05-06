@@ -15,7 +15,8 @@ public class Product {
     private float price;
 
     @ManyToMany
-    @JoinTable(name = "seller_product",joinColumns = @JoinColumn(name = "product_id"), inverseJoinColumns = @JoinColumn(name = "seller_id"))
+    @JoinTable(name = "seller_product",joinColumns = @JoinColumn(name = "product_id"),
+            inverseJoinColumns = @JoinColumn(name = "seller_id"))
     private Set<Seller> sellerSet = new HashSet<>();
 
     @ManyToOne

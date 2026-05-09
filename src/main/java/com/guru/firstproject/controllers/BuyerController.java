@@ -1,15 +1,13 @@
 package com.guru.firstproject.controllers;
 
-import com.guru.firstproject.model.Buyer;
+import com.guru.firstproject.model.BuyerDTO;
 import com.guru.firstproject.services.BuyerService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.function.ServerRequest;
 
 import java.util.List;
 import java.util.UUID;
@@ -22,27 +20,27 @@ public class BuyerController {
     private BuyerService buyerService;
 
     @RequestMapping(method = RequestMethod.GET)
-    public List<Buyer> buyersList(){
+    public List<BuyerDTO> buyersList(){
         return buyerService.listTheBuyers();
     }
     @RequestMapping("{buyerId}")
-    public Buyer getBuyerById(@PathVariable("buyerId") UUID carId){
+    public BuyerDTO getBuyerById(@PathVariable("buyerId") UUID carId){
         IO.println("Buyer with the ID of : "+carId+" has been called");;
         return buyerService.getBuyerById(carId);
     }
 
     @PostMapping
     //@RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity handlePost(@RequestBody Buyer buyer){
-        Buyer newBuyer = buyerService.addBuyer(buyer);
+    public ResponseEntity handlePost(@RequestBody BuyerDTO buyerDTO){
+        BuyerDTO newBuyerDTO = buyerService.addBuyer(buyerDTO);
          HttpHeaders headers = new HttpHeaders();
-         headers.add("Location","api/v1/buyers" + buyer.getId().toString());
+         headers.add("Location","api/v1/buyers" + buyerDTO.getId().toString());
         return new ResponseEntity(headers, HttpStatus.CREATED);
     }
 
     @PutMapping("{buyerId}")
-    public ResponseEntity handleUpdate(@PathVariable("buyerId") UUID buyerId, @RequestBody  Buyer buyer){
-        buyerService.updateBuyer(buyerId, buyer);
+    public ResponseEntity handleUpdate(@PathVariable("buyerId") UUID buyerId, @RequestBody BuyerDTO buyerDTO){
+        buyerService.updateBuyer(buyerId, buyerDTO);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 

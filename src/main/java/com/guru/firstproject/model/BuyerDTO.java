@@ -10,7 +10,7 @@ import java.util.UUID;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Buyer {
+public class BuyerDTO {
     private UUID id;
     private String firstName;
     private String lastName;

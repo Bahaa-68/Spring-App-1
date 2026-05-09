@@ -1,6 +1,6 @@
 package com.guru.firstproject.controllers;
 
-import com.guru.firstproject.model.Car;
+import com.guru.firstproject.model.CarDTO;
 import com.guru.firstproject.services.CarService;
 import com.guru.firstproject.services.CarServiceImp;
 import org.junit.jupiter.api.Test;
@@ -9,10 +9,8 @@ import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.ResultMatcher;
 
 
-import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.BDDMockito.*;
 
 
@@ -21,8 +19,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import static org.hamcrest.core.Is.is;
-
-import java.util.UUID;
 
 //@SpringBootTest
 @WebMvcTest(CarController.class)
@@ -55,14 +51,14 @@ class CarControllerTest {
     @Test
     void getCarByIdd() throws Exception {
         IO.println("TESTING MOCKITO");
-        Car testCar = carServiceImpTest.listTheCars().get(3);
-        given(carServiceTest.getCarById(testCar.getId())).willReturn(testCar);
+        CarDTO testCarDTO = carServiceImpTest.listTheCars().get(3);
+       // given(carServiceTest.getCarById(testCarDTO.getId())).willReturn(testCarDTO);
 
-        mockMvc.perform(get("/api/v1/cars/" + testCar.getId())
+        mockMvc.perform(get("/api/v1/cars/" + testCarDTO.getId())
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.id",is(testCar.getId().toString())))
-                .andExpect(jsonPath("$.brand" ,is(testCar.getBrand().toString())));
+                .andExpect(jsonPath("$.id",is(testCarDTO.getId().toString())))
+                .andExpect(jsonPath("$.brand" ,is(testCarDTO.getBrand().toString())));
     }
 }

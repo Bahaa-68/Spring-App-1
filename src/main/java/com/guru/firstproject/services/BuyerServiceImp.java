@@ -1,35 +1,33 @@
 package com.guru.firstproject.services;
 
-import com.guru.firstproject.model.Buyer;
+import com.guru.firstproject.model.BuyerDTO;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
-import java.util.random.RandomGenerator;
 
 @Slf4j
 @Service
 public class BuyerServiceImp implements BuyerService{
-    Map<UUID, Buyer> buyerMap;
+    Map<UUID, BuyerDTO> buyerMap;
     public BuyerServiceImp(){
         this.buyerMap = new HashMap<>();
 
-        Buyer buyer1 = Buyer.builder()
+        BuyerDTO buyerDTO1 = BuyerDTO.builder()
                 .id(UUID.randomUUID())
                 .firstName("Ralf")
                 .lastName("Schuhmacher")
                 .age(47)
                 .budget(7500)
                 .build();
-        Buyer buyer2 = Buyer.builder()
+        BuyerDTO buyerDTO2 = BuyerDTO.builder()
                 .id(UUID.randomUUID())
                 .firstName("Arnold")
                 .lastName("Schwarz")
                 .age(58)
                 .budget(15000)
                 .build();
-        Buyer buyer3 = Buyer.builder()
+        BuyerDTO buyerDTO3 = BuyerDTO.builder()
                 .id(UUID.randomUUID())
                 .firstName("Osama")
                 .lastName("Alqasem")
@@ -37,41 +35,41 @@ public class BuyerServiceImp implements BuyerService{
                 .budget(250000)
                 .build();
 
-        buyerMap.put(buyer1.getId(),buyer1);
-        buyerMap.put(buyer2.getId(),buyer2);
-        buyerMap.put(buyer3.getId(),buyer3);
-        log.debug(buyer1.getId().toString());
+        buyerMap.put(buyerDTO1.getId(), buyerDTO1);
+        buyerMap.put(buyerDTO2.getId(), buyerDTO2);
+        buyerMap.put(buyerDTO3.getId(), buyerDTO3);
+        log.debug(buyerDTO1.getId().toString());
     }
 
 
     @Override
-    public List<Buyer> listTheBuyers(){
+    public List<BuyerDTO> listTheBuyers(){
         return new ArrayList<>(buyerMap.values());
     }
     @Override
-    public Buyer getBuyerById(UUID id){
+    public BuyerDTO getBuyerById(UUID id){
         return buyerMap.get(id);
     }
 
     @Override
-    public Buyer addBuyer(Buyer buyer){
-        Buyer newBuyer = Buyer.builder()
+    public BuyerDTO addBuyer(BuyerDTO buyerDTO){
+        BuyerDTO newBuyerDTO = BuyerDTO.builder()
                 .id(UUID.randomUUID())
-                .firstName(buyer.getFirstName())
-                .lastName(buyer.getLastName())
-                .age(buyer.getAge())
-                .budget(buyer.getBudget())
+                .firstName(buyerDTO.getFirstName())
+                .lastName(buyerDTO.getLastName())
+                .age(buyerDTO.getAge())
+                .budget(buyerDTO.getBudget())
                 .build() ;
-        buyerMap.put(newBuyer.getId(),newBuyer);
-        return newBuyer;
+        buyerMap.put(newBuyerDTO.getId(), newBuyerDTO);
+        return newBuyerDTO;
     }
 
-    public void updateBuyer(UUID id, Buyer buyer){
-        Buyer current = buyerMap.get(id);
-        current.setFirstName(buyer.getFirstName());
-        current.setLastName(buyer.getLastName());
-        current.setAge(buyer.getAge());
-        current.setBudget(buyer.getBudget());
+    public void updateBuyer(UUID id, BuyerDTO buyerDTO){
+        BuyerDTO current = buyerMap.get(id);
+        current.setFirstName(buyerDTO.getFirstName());
+        current.setLastName(buyerDTO.getLastName());
+        current.setAge(buyerDTO.getAge());
+        current.setBudget(buyerDTO.getBudget());
 
         buyerMap.put(current.getId(), current);
 

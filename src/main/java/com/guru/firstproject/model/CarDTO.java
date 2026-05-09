@@ -12,7 +12,7 @@ import java.util.UUID;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Car {
+public class CarDTO {
     private UUID id;
     private CarBrand brand;
     private String type;

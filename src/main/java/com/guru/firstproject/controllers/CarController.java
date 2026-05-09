@@ -1,9 +1,8 @@
 package com.guru.firstproject.controllers;
 
-import com.guru.firstproject.model.Car;
+import com.guru.firstproject.model.CarDTO;
 import com.guru.firstproject.model.CarBrand;
 import com.guru.firstproject.services.CarService;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
@@ -27,34 +26,34 @@ public class CarController {
     }
 
     @PutMapping("{carId}")
-    public ResponseEntity handleUpdaate(@PathVariable("carId") UUID carId, @RequestBody Car car){
+    public ResponseEntity handleUpdaate(@PathVariable("carId") UUID carId, @RequestBody CarDTO carDTO){
 
-        carService.updateCarById(carId, car);
+        carService.updateCarById(carId, carDTO);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
     @PostMapping
-    public ResponseEntity handlePost(@RequestBody Car car){
-        Car newCar = carService.addCar(car);
+    public ResponseEntity handlePost(@RequestBody CarDTO carDTO){
+        CarDTO newCarDTO = carService.addCar(carDTO);
         HttpHeaders headers = new HttpHeaders();
-        headers.add("Location","/api/v1/cars/"+newCar.getId().toString());
+        headers.add("Location","/api/v1/cars/"+ newCarDTO.getId().toString());
         return new ResponseEntity( headers ,HttpStatus.CREATED);
     }
 
     @RequestMapping(method = RequestMethod.GET, name = "Qwer")
-    public List<Car> carsList(){
+    public List<CarDTO> carsList(){
         return carService.listTheCars();
     }
 
     @RequestMapping(value = "{carId}",method = RequestMethod.GET)
-    public Car getCarById(@PathVariable("carId") UUID carId){
+    public CarDTO getCarById(@PathVariable("carId") UUID carId){
         log.debug("Inside getCarById -- in Controller");
 
-        return carService.getCarById(carId);
+        return carService.getCarById(carId).orElseThrow(NoClassDefFoundError::new);
     }
 
     @RequestMapping(value = "/byBrand/{carBrand}",method = RequestMethod.GET)
-    public Car getCarByBrand(@PathVariable("carBrand") CarBrand carBrand){
+    public CarDTO getCarByBrand(@PathVariable("carBrand") CarBrand carBrand){
         return carService.getCarByBrand(carBrand);
     }
 

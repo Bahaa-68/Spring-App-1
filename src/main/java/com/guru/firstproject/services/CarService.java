@@ -1,21 +1,22 @@
 package com.guru.firstproject.services;
 
-import com.guru.firstproject.model.Car;
+import com.guru.firstproject.model.CarDTO;
 import com.guru.firstproject.model.CarBrand;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 public interface CarService {
-    List<Car> listTheCars();
+    List<CarDTO> listTheCars();
 
-    Car getCarById(UUID id);
+    Optional<CarDTO> getCarById(UUID id);
 
-    Car addCar(Car car);
+    CarDTO addCar(CarDTO carDTO);
 
-    void updateCarById(UUID id, Car car);
+    void updateCarById(UUID id, CarDTO carDTO);
 
-    Car getCarByBrand(CarBrand carBrand);
+    CarDTO getCarByBrand(CarBrand carBrand);
 
     void deleteCarById(UUID carId);
 }

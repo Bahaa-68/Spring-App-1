@@ -1,12 +1,8 @@
 package com.guru.firstproject.services;
 
 import com.guru.firstproject.entities.Customer;
-import com.guru.firstproject.model.Buyer;
 import com.guru.firstproject.repositories.CustomerRepository;
 import org.springframework.stereotype.Service;
-
-import java.util.Map;
-import java.util.UUID;
 
 @Service
 public class CustomerServiceImp implements CustomerService{

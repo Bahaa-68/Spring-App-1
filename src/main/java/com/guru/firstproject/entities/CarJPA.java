@@ -22,7 +22,7 @@ public class CarJPA {
     @Id
     @GeneratedValue(generator = "UUID")
     @UuidGenerator
-    @Column(length = 16, columnDefinition = "varchar", nullable = false, updatable = false, unique = true)
+    @Column(length = 8, columnDefinition = "varchar", nullable = false, updatable = false, unique = true)
     private UUID id;
     private CarBrand brand;
     private String type;

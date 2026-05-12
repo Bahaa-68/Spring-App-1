@@ -13,8 +13,10 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
+import java.awt.*;
 import java.lang.reflect.Array;
 import java.math.BigDecimal;
+import java.net.URI;
 import java.time.LocalDate;
 import java.util.Iterator;
 import java.util.List;
@@ -95,5 +97,7 @@ public class BootstrapJPAData implements CommandLineRunner {
 
         List<BuyerJPA> buyerJPAList = List.of(buyerJPA1, buyerJPA2, buyerJPA3);
         buyerRepository.saveAll(buyerJPAList);
+
+        //Desktop.getDesktop().browse(new URI("http://localhost:8080/h2-console/login.do?jsessionid="));
     }
 }

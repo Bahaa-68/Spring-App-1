@@ -83,7 +83,7 @@ public class CarServiceImp implements CarService{
         carMap.put(newCarDTO.getId(), newCarDTO);
         return newCarDTO;
     }
-    public void updateCarById(UUID id, CarDTO carDTO){
+    public Optional<CarDTO> updateCarById(UUID id, CarDTO carDTO){
         CarDTO current = carMap.get(id);
         current.setType(carDTO.getType());
         current.setModel(carDTO.getModel());
@@ -92,6 +92,7 @@ public class CarServiceImp implements CarService{
         current.setBrand(carDTO.getBrand());
 
         carMap.put(current.getId(),current);
+        return Optional.of(current);
     }
     @Override
     public CarDTO getCarByBrand(CarBrand carBrand){

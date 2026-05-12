@@ -5,6 +5,7 @@ import com.guru.firstproject.model.CarBrand;
 import com.guru.firstproject.services.CarService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,9 +27,11 @@ public class CarController {
     }
 
     @PutMapping("{carId}")
-    public ResponseEntity handleUpdaate(@PathVariable("carId") UUID carId, @RequestBody CarDTO carDTO){
+    public ResponseEntity handleUpdate(@PathVariable("carId") UUID carId, @RequestBody CarDTO carDTO) throws ChangeSetPersister.NotFoundException {
 
-        carService.updateCarById(carId, carDTO);
+        if(carService.updateCarById(carId, carDTO).isEmpty()){
+            throw new ChangeSetPersister.NotFoundException();
+        }
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 

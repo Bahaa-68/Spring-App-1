@@ -14,7 +14,7 @@ public interface CarService {
 
     CarDTO addCar(CarDTO carDTO);
 
-    void updateCarById(UUID id, CarDTO carDTO);
+    Optional<CarDTO> updateCarById(UUID id, CarDTO carDTO);
 
     CarDTO getCarByBrand(CarBrand carBrand);
 

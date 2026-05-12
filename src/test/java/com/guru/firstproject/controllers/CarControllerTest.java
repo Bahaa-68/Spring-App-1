@@ -11,6 +11,8 @@ import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
 
+import java.util.Optional;
+
 import static org.mockito.BDDMockito.*;
 
 
@@ -52,7 +54,7 @@ class CarControllerTest {
     void getCarByIdd() throws Exception {
         IO.println("TESTING MOCKITO");
         CarDTO testCarDTO = carServiceImpTest.listTheCars().get(3);
-       // given(carServiceTest.getCarById(testCarDTO.getId())).willReturn(testCarDTO);
+        given(carServiceTest.getCarById(testCarDTO.getId())).willReturn(Optional.of(testCarDTO));
 
         mockMvc.perform(get("/api/v1/cars/" + testCarDTO.getId())
                 .accept(MediaType.APPLICATION_JSON))

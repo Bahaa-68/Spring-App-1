@@ -1,6 +1,7 @@
 package com.guru.firstproject.services;
 
 import com.guru.firstproject.Mappers.CarMapper;
+import com.guru.firstproject.entities.CarJPA;
 import com.guru.firstproject.model.CarBrand;
 import com.guru.firstproject.model.CarDTO;
 import com.guru.firstproject.repositories.CarRepository;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
 @Primary
@@ -37,12 +39,21 @@ public class CarServiceJPA implements CarService {
 
     @Override
     public CarDTO addCar(CarDTO carDTO) {
-        return null;
+        return carMapper.carToCarDto(carRepository.save(carMapper.carDtoToCar(carDTO)));
     }
 
     @Override
-    public void updateCarById(UUID id, CarDTO carDTO) {
-
+    public Optional<CarDTO> updateCarById(UUID id, CarDTO carDTO) {
+        AtomicReference<Optional<CarDTO>> atomicReference = new AtomicReference();
+        carRepository.findById(id).ifPresentOrElse(currentCar -> {
+            currentCar.setBrand(carDTO.getBrand());
+            currentCar.setType(carDTO.getType());
+            currentCar.setPrice(carDTO.getPrice());
+            currentCar.setModel(carDTO.getModel());
+          atomicReference.set(Optional.of(carMapper
+                  .carToCarDto(carRepository.save(currentCar))));  //currentCar.setManufactureDate(carDTO.getManufactureDate());
+        }, () -> {atomicReference.set(Optional.empty());});
+        return atomicReference.get(); //Optional.of(carMapper.carToCarDto(carRepository.getReferenceById(id)));
     }
 
     @Override

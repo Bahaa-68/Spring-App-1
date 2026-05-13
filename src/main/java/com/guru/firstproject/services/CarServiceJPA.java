@@ -50,11 +50,13 @@ public class CarServiceJPA implements CarService {
             currentCar.setType(carDTO.getType());
             currentCar.setPrice(carDTO.getPrice());
             currentCar.setModel(carDTO.getModel());
-          atomicReference.set(Optional.of(carMapper
-                  .carToCarDto(carRepository.save(currentCar))));  //currentCar.setManufactureDate(carDTO.getManufactureDate());
-        }, () -> {atomicReference.set(Optional.empty());});
+            atomicReference.set(Optional.of(carMapper
+                    .carToCarDto(carRepository.save(currentCar))));  //currentCar.setManufactureDate(carDTO.getManufactureDate());
+        }, () -> {
+            atomicReference.set(Optional.empty());
+        });
         return atomicReference.get(); //Optional.of(carMapper.carToCarDto(carRepository.getReferenceById(id)));
-    }
+    }//xxxxxxxxxxxxxxxxxxxxxx
 
     @Override
     public CarDTO getCarByBrand(CarBrand carBrand) {
@@ -62,7 +64,11 @@ public class CarServiceJPA implements CarService {
     }
 
     @Override
-    public void deleteCarById(UUID carId) {
-
+    public Boolean deleteCarById(UUID carId) {
+        if (carRepository.existsById(carId)) {
+            carRepository.deleteById(carId);
+            return true;
+        }
+        return false;
     }
 }

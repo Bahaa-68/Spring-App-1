@@ -18,5 +18,5 @@ public interface CarService {
 
     CarDTO getCarByBrand(CarBrand carBrand);
 
-    void deleteCarById(UUID carId);
+    Boolean  deleteCarById(UUID carId);
 }

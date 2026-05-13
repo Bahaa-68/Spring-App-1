@@ -99,7 +99,7 @@ public class CarServiceImp implements CarService{
         return carMapByBrand.get(carBrand);
     }
     @Override
-    public void deleteCarById(UUID carId){
-        carMap.remove(carId);
+    public Boolean deleteCarById(UUID carId){
+        carMap.remove(carId); return true;
     }
 }

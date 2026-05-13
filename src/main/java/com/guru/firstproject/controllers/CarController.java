@@ -21,8 +21,11 @@ public class CarController {
     private final CarService carService;
     
     @DeleteMapping("{carId}")
-    public ResponseEntity handleDelete(@PathVariable("carId") UUID carId){
-        carService.deleteCarById(carId);
+    public ResponseEntity handleDelete(@PathVariable("carId") UUID carId) throws ChangeSetPersister.NotFoundException {
+        if (!carService.deleteCarById(carId) ){
+            throw new ChangeSetPersister.NotFoundException();
+        }
+
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
@@ -34,7 +37,6 @@ public class CarController {
         }
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
-
     @PostMapping
     public ResponseEntity handlePost(@RequestBody CarDTO carDTO){
         CarDTO newCarDTO = carService.addCar(carDTO);

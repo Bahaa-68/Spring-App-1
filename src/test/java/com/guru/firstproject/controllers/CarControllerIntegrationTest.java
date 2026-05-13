@@ -37,6 +37,29 @@ class CarControllerIntegrationTest {
     private CarMapper carMapper;
 
 
+    @Test
+    void deleteError(){
+        assertThrows(ChangeSetPersister.NotFoundException.class, ()->{
+            controller.handleDelete(UUID.randomUUID());
+         }
+        );
+    }
+    @Test
+    void testDelete() throws ChangeSetPersister.NotFoundException {
+        CarJPA carJPA = carRepository.findAll().get(0);
+        for (int i = 0; i < carRepository.count(); i++) {
+            IO.println(carMapper.carToCarDto(carRepository.findAll().get(i)) + "\n");
+        }
+        IO.println("\n \n \n");
+
+        ResponseEntity responseEntity = controller.handleDelete(carJPA.getId());
+
+        assertThat(carRepository.findById(carJPA.getId())).isEmpty();
+        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.NO_CONTENT);
+        for (int i = 0; i < carRepository.count(); i++) {
+            IO.println(carMapper.carToCarDto(carRepository.findAll().get(i))  + "\n");
+        }
+    }
 
     @Transactional
     @Rollback
